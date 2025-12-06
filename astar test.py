@@ -1,8 +1,6 @@
 import pygame
 import Movement
 
-# test to see if I can f**king commit!!!!
-
 pygame.init()
 
 screen = pygame.display.set_mode((700, 700))
