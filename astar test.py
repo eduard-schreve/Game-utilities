@@ -13,9 +13,10 @@ run = True
 startPos = (0, 0)
 endPos = (9, 9)
 mPos = (0, 0)
-path = []
+Path = []
+atEnd = False
 curnode = startPos
-move = Movement
+move = Movement.pathFind()
 
 Map = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
@@ -57,12 +58,12 @@ while run:
 
     # if curnode != endPos:
     if key[pygame.K_SPACE]:
-        path = move.aStar(Map, startPos, endPos)
+        Path = move.aStar(Map, startPos, endPos)
+
     # print("path: " + str(path))
-        # print(curnode)
 
     #-DRAW THE PATH-#
-    for i in path:
+    for i in Path:
         pygame.draw.rect(screen, (0, 255, 0), (i[0] * 70, i[1] * 70, 70, 70))
 
     pygame.display.flip()

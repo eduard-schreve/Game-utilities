@@ -31,111 +31,115 @@ class follow:
 
         return self.vect
 
-def aStar(grid, start, end, atEnd = False):
-    curnode = start
-    path = []
+class pathFind():
+    def __init__(self): 
+        self.path = []
+        self.atEnd = False
 
-    h = math.sqrt((start[0] - end[0]) ** 2 + (start[1] - end[1]) ** 2)
-    g = 0
-    f = g + h
-    openNodes = []
-    fNodes = []
+    def aStar(self, grid, start, end):
+        curnode = start
 
-    while not atEnd:
-        atEnd = False
-        if curnode[0] == end[0] and curnode[1] == end[1]:
-            atEnd = True
+        h = math.sqrt((start[0] - end[0]) ** 2 + (start[1] - end[1]) ** 2)
+        g = 0
+        f = g + h
+        # openNodes = []
+        fNodes = []
 
-        prevNode = curnode
-        #-FIND THE NEGIBOURS AND ASSIGN THE OPEN NODES-#
-        #-TOP-#
-        curnode = [prevNode[0], prevNode[1] - 1]
-        if curnode[1] != 0:
-            if not (grid[curnode[0]][curnode[1]] == 1):
-                h = math.sqrt((curnode[0] - end[0]) ** 2 + (curnode[1] - end[1]) ** 2)
-                g = 1
-                f = g + h
-                openNodes.append([f, g, h, curnode, prevNode])
-                fNodes.append(f)
+        while not self.atEnd:
+            openNodes = []
 
-        #-TOP RIGHT-#
-        curnode = [prevNode[0] + 1, prevNode[1] - 1]
-        if curnode[1] != 0 and curnode[0] != len(grid[0]):
-            if not (grid[curnode[0]][curnode[1]] == 1):
-                h = math.sqrt((curnode[0] - end[0]) ** 2 + (curnode[1] - end[1]) ** 2)
-                g = 1.41
-                f = g + h
-                openNodes.append([f, g, h, curnode, prevNode])
-                fNodes.append(f)
-        
-        #-RIGHT-#
-        curnode = [prevNode[0] + 1, prevNode[1]]
-        if curnode[0] != len(grid[0]):
-            if not (grid[curnode[0]][curnode[1]] == 1):
-                h = math.sqrt((curnode[0] - end[0]) ** 2 + (curnode[1] - end[1]) ** 2)
-                g = 1
-                f = g + h
-                openNodes.append([f, g, h, curnode, prevNode])
-                fNodes.append(f)
-        
-        #-BOTTOM RIGHT-#
-        curnode = [prevNode[0] + 1, prevNode[1] + 1]
-        if curnode[0] != len(grid[0]) and curnode[1] != len(grid):
-            if not (grid[curnode[0]][curnode[1]] == 1):
-                h = math.sqrt((curnode[0] - end[0]) ** 2 + (curnode[1] - end[1]) ** 2)
-                g = 1.41
-                f = g + h
-                openNodes.append([f, g, h, curnode, prevNode])
-                fNodes.append(f)
-        
-        #-BOTTOM-#
-        curnode = [prevNode[0], prevNode[1] + 1]
-        if curnode[1] != len(grid):
-            if not (grid[curnode[0]][curnode[1]] == 1):
-                h = math.sqrt((curnode[0] - end[0]) ** 2 + (curnode[1] - end[1]) ** 2)
-                g = 1
-                f = g + h
-                openNodes.append([f, g, h, curnode, prevNode])
-                fNodes.append(f)
-        
-        #-BOTTOM LEFT-#
-        curnode = [prevNode[0] - 1, prevNode[1] + 1]
-        if curnode[0] != 0 and curnode[1] != len(grid):
-            if not (grid[curnode[0]][curnode[1]] == 1):
-                h = math.sqrt((curnode[0] - end[0]) ** 2 + (curnode[1] - end[1]) ** 2)
-                g = 1.41
-                f = g + h
-                openNodes.append([f, g, h, curnode, prevNode])
-                fNodes.append(f)
-        
-        #-LEFT-#
-        curnode = [prevNode[0] - 1, prevNode[1]]
-        if curnode[0] != 0 :
-            if not (grid[curnode[0]][curnode[1]] == 1):
-                h = math.sqrt((curnode[0] - end[0]) ** 2 + (curnode[1] - end[1]) ** 2)
-                g = 1
-                f = g + h
-                openNodes.append([f, g, h, curnode, prevNode])
-                fNodes.append(f)
-        
-        #-TOP LEFT-#
-        curnode = [prevNode[0] - 1, prevNode[1] - 1]
-        if curnode[0] != 0 and curnode[1] != 0:
-            if not (grid[curnode[0]][curnode[1]] == 1):
-                h = math.sqrt((curnode[0] - end[0]) ** 2 + (curnode[1] - end[1]) ** 2)
-                g = 1.41
-                f = g + h
-                openNodes.append([f, g, h, curnode, prevNode])
-                fNodes.append(f)
+            # atEnd = False
+            if curnode[0] == end[0] and curnode[1] == end[1]:
+                self.atEnd = True
 
-        # print(openNodes)
-        curnode = openNodes[fNodes.index(min(fNodes))][3]
+            prevNode = curnode
+            #-FIND THE NEGIBOURS AND ASSIGN THE OPEN NODES-#
+            #-TOP-#
+            curnode = [prevNode[0], prevNode[1] - 1]
+            if curnode[1] != 0:
+                if not (grid[curnode[0]][curnode[1]] == 1):
+                    h = math.sqrt((curnode[0] - end[0]) ** 2 + (curnode[1] - end[1]) ** 2)
+                    g = 1
+                    f = g + h
+                    openNodes.append([f, g, h, curnode, prevNode])
+                    fNodes.append(f)
 
-        path.append(curnode)
+            #-TOP RIGHT-#
+            curnode = [prevNode[0] + 1, prevNode[1] - 1]
+            if curnode[1] != 0 and curnode[0] != len(grid[0]):
+                if not (grid[curnode[0]][curnode[1]] == 1):
+                    h = math.sqrt((curnode[0] - end[0]) ** 2 + (curnode[1] - end[1]) ** 2)
+                    g = 1.41
+                    f = g + h
+                    openNodes.append([f, g, h, curnode, prevNode])
+                    fNodes.append(f)
+            
+            #-RIGHT-#
+            curnode = [prevNode[0] + 1, prevNode[1]]
+            if curnode[0] != len(grid[0]):
+                if not (grid[curnode[0]][curnode[1]] == 1):
+                    h = math.sqrt((curnode[0] - end[0]) ** 2 + (curnode[1] - end[1]) ** 2)
+                    g = 1
+                    f = g + h
+                    openNodes.append([f, g, h, curnode, prevNode])
+                    fNodes.append(f)
+            
+            #-BOTTOM RIGHT-#
+            curnode = [prevNode[0] + 1, prevNode[1] + 1]
+            if curnode[0] != len(grid[0]) and curnode[1] != len(grid):
+                if not (grid[curnode[0]][curnode[1]] == 1):
+                    h = math.sqrt((curnode[0] - end[0]) ** 2 + (curnode[1] - end[1]) ** 2)
+                    g = 1.41
+                    f = g + h
+                    openNodes.append([f, g, h, curnode, prevNode])
+                    fNodes.append(f)
+            
+            #-BOTTOM-#
+            curnode = [prevNode[0], prevNode[1] + 1]
+            if curnode[1] != len(grid):
+                if not (grid[curnode[0]][curnode[1]] == 1):
+                    h = math.sqrt((curnode[0] - end[0]) ** 2 + (curnode[1] - end[1]) ** 2)
+                    g = 1
+                    f = g + h
+                    openNodes.append([f, g, h, curnode, prevNode])
+                    fNodes.append(f)
+            
+            #-BOTTOM LEFT-#
+            curnode = [prevNode[0] - 1, prevNode[1] + 1]
+            if curnode[0] != 0 and curnode[1] != len(grid):
+                if not (grid[curnode[0]][curnode[1]] == 1):
+                    h = math.sqrt((curnode[0] - end[0]) ** 2 + (curnode[1] - end[1]) ** 2)
+                    g = 1.41
+                    f = g + h
+                    openNodes.append([f, g, h, curnode, prevNode])
+                    fNodes.append(f)
+            
+            #-LEFT-#
+            curnode = [prevNode[0] - 1, prevNode[1]]
+            if curnode[0] != 0 :
+                if not (grid[curnode[0]][curnode[1]] == 1):
+                    h = math.sqrt((curnode[0] - end[0]) ** 2 + (curnode[1] - end[1]) ** 2)
+                    g = 1
+                    f = g + h
+                    openNodes.append([f, g, h, curnode, prevNode])
+                    fNodes.append(f)
+            
+            #-TOP LEFT-#
+            curnode = [prevNode[0] - 1, prevNode[1] - 1]
+            if curnode[0] != 0 and curnode[1] != 0:
+                if not (grid[curnode[0]][curnode[1]] == 1):
+                    h = math.sqrt((curnode[0] - end[0]) ** 2 + (curnode[1] - end[1]) ** 2)
+                    g = 1.41
+                    f = g + h
+                    openNodes.append([f, g, h, curnode, prevNode])
+                    fNodes.append(f)
 
-        print("path: " + str(path))
-        # print(curnode)
-        # print(atEnd)
+            print("open nodes: " + str(openNodes))
+            print("fNodes: " + str(fNodes))
+            curnode = openNodes[fNodes.index(min(fNodes))][3]
 
-    return path
+            self.path.append(curnode)
+
+        print("path: " + str(self.path))
+        return self.path
     
