@@ -42,13 +42,10 @@ class pathFind():
         h = math.sqrt((start[0] - end[0]) ** 2 + (start[1] - end[1]) ** 2)
         g = 0
         f = g + h
-        # openNodes = []
         fNodes = []
+        openNodes = []
 
         while not self.atEnd:
-            openNodes = []
-
-            # atEnd = False
             if curnode[0] == end[0] and curnode[1] == end[1]:
                 self.atEnd = True
 
@@ -134,11 +131,20 @@ class pathFind():
                     openNodes.append([f, g, h, curnode, prevNode])
                     fNodes.append(f)
 
-            print("open nodes: " + str(openNodes))
-            print("fNodes: " + str(fNodes))
+            # print("open nodes: " + str(openNodes))
+            print("")
+            # print("fNodes: " + str(fNodes))
+            print("")
+            print("min fNodes: " + str(min(fNodes)))
+            print("")
+            print("co-ord of min fNode: " + str(openNodes[fNodes.index(min(fNodes))][3]))
+            print("-------------------------------------------------------------------------------")
+            
             curnode = openNodes[fNodes.index(min(fNodes))][3]
+            # fNodes.remove(min(fNodes))
+            
 
-            self.path.append(curnode)
+        self.path.append(curnode)
 
         print("path: " + str(self.path))
         return self.path
